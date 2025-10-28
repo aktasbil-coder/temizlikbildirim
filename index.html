@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temizlik Bildirim</title>
+
+  <!-- OneSignal SDK -->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "b3fe6818-c74f-433a-b21c-83f2fa3b10fd", // 🔸 Buraya kendi App ID’ni yaz
+        notifyButton: {
+          enable: true, // Bildirim butonunu aktif et
+        },
+        promptOptions: {
+          slidedown: {
+            enabled: true,
+            actionMessage: "Bu siteden bildirim almak ister misiniz?",
+            acceptButtonText: "Evet",
+            cancelButtonText: "Hayır"
+          }
+        }
+      });
+
+      // Kullanıcı izni durumu
+      OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+        if (isEnabled)
+          console.log("📲 Bildirimler aktif!");
+        else
+          console.log("🔕 Kullanıcı henüz izin vermedi.");
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f9fafb;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #0078ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005ec4;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔔 Temizlik Uygulaması Mobil Bildirim 🔔</h1>
+  <p>Bildirim almak için aşağıdaki butona tıklayın 👇</p>
+  <button id="subscribeBtn">Bildirim İzni Al</button>
+
+  <script>
+    document.getElementById("subscribeBtn").addEventListener("click", function() {
+      OneSignal.push(function() {
+        OneSignal.showSlidedownPrompt(); // Bildirim izni isteme penceresini gösterir
+      });
+    });
+  </script>
+</body>
+</html>
